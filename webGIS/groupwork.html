@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常规图形的复杂编辑应用</title>
+    <link href="css/ol.css" rel="stylesheet"/>
+    <link href="css/mypopup.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="examples/ZoomSlider.css">
+    <script src="js/mydraw.js"></script>
+    <script src="js/turf.min.js"></script>
+    <script src="build/ol.js"></script>
+    <style>
+        body,
+        html,
+        div,
+        ul,
+        li,
+        iframe,
+        p,
+        img {
+            border: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+            font-family: "微软雅黑";
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        /* 图层控件层样式设置 */
+
+        .layerControl {
+            position: absolute;
+            bottom: 5px;
+            min-width: 200px;
+            max-height: 300px;
+            right: 0px;
+            top: 5px;
+            z-index: 2001;
+            /*在地图容器中的层，要设置z-index的值让其显示在地图上层*/
+            color: #ffffff;
+            background-color: #4c4e5a;
+            border-width: 10px;
+            /*边缘的宽度*/
+            border-radius: 10px;
+            /*圆角的大小 */
+            border-color: #000 #000 #000 #000;
+            /*边框颜色*/
+        }
+
+        .layerControl .title {
+            font-weight: bold;
+            font-size: 15px;
+            margin: 10px;
+        }
+
+        .layerTree li {
+            list-style: none;
+            margin: 5px 10px;
+        }
+
+        /* 鼠标位置控件层样式设置 */
+
+        #mouse-position {
+            float: left;
+            position: absolute;
+            bottom: 5px;
+            width: 200px;
+            height: 20px;
+            z-index: 2000;
+            /*在地图容器中的层，要设置z-index的值让其显示在地图上层*/
+        }
+
+        .ol-mouse-position {
+            top: inherit;
+            bottom: 8px;
+            left: 8px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+
+    </script>
+</head>
+<body><!--onload="init()"-->
+<div id="menu">
+    <label style="font-weight: bold;">
+        几何图形类型：
+    </label>
+    <button id="pointBtn" class="btn" onclick="drawPoint()">点</button>
+    <button id="lineBtn" class="btn" onclick="drawLine()">线</button>
+    <button id="polygonBtn" class="btn" onclick="drawPolygon()">面</button>
+    <button id="squareBtn" class="btn" onclick="drawSquare()">正</button>
+    <button id="recBtn" class="btn" onclick="drawRec()">长</button>
+    <button id="circleBtn" class="btn" onclick="drawCircle()">圆</button>
+    <button id="starBtn" class="btn" onclick="drawStar()">星</button>
+    <button id="editBtn" class="btn" onclick="editFea()">编</button>
+    <button id="eraserBtn" class="btn" onclick="drawEraser()">清</button>
+    <button id="selectBtn" class="btn" onclick="selectFea()">选</button>
+    <button id="bufferBtn" class="btn" onclick="bufferFea()">缓</button>
+    <div id="my-mouse-position" style="font-weight: bold;">
+    </div>
+</div>
+<div id="map">
+    <div id="layerControl" class="layerControl">
+        <div class="title"><label>图层列表</label></div>
+        <ul id="layerTree" class="layerTree"></ul>
+    </div>
+</div>
+<div id="popup" class="ol-popup">
+    <a href="#" id="popup-close" class="ol-popup-closer" onclick="popupClose()"></a>
+    <div id="popup-content">
+        <label>&nbsp;&nbsp;边框颜色:&nbsp;&nbsp;</label>
+        <input type="color" id="linecolor" value="#ff0000"/><br/>
+        <label>&nbsp;&nbsp;填充颜色:&nbsp;&nbsp;</label>
+        <input type="color" id="fillcolor" value="#FFFFFF"/>
+        <br/>
+        <label>&nbsp;&nbsp;边框宽度:&nbsp;&nbsp;</label>
+        <input type="text" id="linewidth" value="2" style="width:45px; "/><br/>
+        <button type="button" id="changeStyle" onclick="changeFeatureStyle()">修改样式</button>
+    </div>
+</div>
+</body>
+</html>
+
